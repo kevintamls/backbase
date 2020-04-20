@@ -39,15 +39,22 @@ def dataImport():
     # Check if there are any valid files to process and exits program if there are none
     if len(filenames) == 0:
         sys.exit('Error: No Valid files to process, exiting')
-
-    # Print number of files to process
-    print('There are ' + str(len(filenames)) + ' valid files to process')
     
     # Import relevant files into dataframe, converter to leave 0 by converting into string        
     for files in filenames:
         dataframes.append(pd.read_csv(files, converters={
                           'AccountID': lambda x: str(x)}))
+
+    # Check if CSV format is correct, deletes import from dataframe and relevant file name 
+    for i, df in enumerate(dataframes):
+        if not {'AccountID', 'AccountType', 'InitiatorType', 'DataTime', 'TransactionValue'}.issubset(df.columns):
+            del dataframes[i]
+            del filenames[i]
+    
     #print(dataframes[1])
+    
+    # Print number of files to process
+    print('There are ' + str(len(filenames)) + ' valid files to process')
     return filenames, dataframes
 
 # Function for data processing
@@ -63,10 +70,6 @@ def dataProcessing(dataframe):
     # For loop to process data per dataframe
     for i, df in enumerate(dataframe):
         print('Processing File ' + str(fileNumber))
-        # Check if imported CSV dataframe is correct for processing, if not skips file
-        if not {'AccountID', 'AccountType', 'InitiatorType', 'DataTime', 'TransactionValue'}.issubset(df.columns):
-            print('File ' + str(fileNumber) + ' is not in the correct format. Skipping.')
-            pass
 
         # 2 copies of dataframe to process, one to iterate, one to modify
         currentDF = dataframe[i].copy()

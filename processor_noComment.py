@@ -17,11 +17,17 @@ def dataImport():
     
     if len(filenames) == 0:
         sys.exit('Error: No Valid files to process, exiting')
-    print('There are ' + str(len(filenames)) + ' valid files to process')
            
     for files in filenames:
         dataframes.append(pd.read_csv(files, converters={
                           'AccountID': lambda x: str(x)}))
+    
+    for i, df in enumerate(dataframes):
+        if not {'AccountID', 'AccountType', 'InitiatorType', 'DataTime', 'TransactionValue'}.issubset(df.columns):
+            del dataframes[i]
+            del filenames[i]
+
+    print('There are ' + str(len(filenames)) + ' valid files to process')
     return filenames, dataframes
 
 def dataProcessing(dataframe):
@@ -31,11 +37,6 @@ def dataProcessing(dataframe):
 
     for i, df in enumerate(dataframe):
         print('Processing File ' + str(fileNumber))
-        if not {'AccountID', 'AccountType', 'InitiatorType', 'DataTime', 'TransactionValue'}.issubset(df.columns):
-            print('File ' + str(fileNumber) +
-                  ' is not in the correct format. Skipping.')
-            pass
-
         currentDF = dataframe[i].copy()
         modifiedDF = dataframe[i].copy()
         rowsAdded = 0
