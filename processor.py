@@ -66,7 +66,7 @@ def dataProcessing(dataframe):
         # Check if imported CSV dataframe is correct for processing, if not skips file
         if not {'AccountID', 'AccountType', 'InitiatorType', 'DataTime', 'TransactionValue'}.issubset(df.columns):
             print('File ' + str(fileNumber) + ' is not in the correct format. Skipping.')
-            break
+            pass
 
         # 2 copies of dataframe to process, one to iterate, one to modify
         currentDF = dataframe[i].copy()

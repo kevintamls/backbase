@@ -34,7 +34,7 @@ def dataProcessing(dataframe):
         if not {'AccountID', 'AccountType', 'InitiatorType', 'DataTime', 'TransactionValue'}.issubset(df.columns):
             print('File ' + str(fileNumber) +
                   ' is not in the correct format. Skipping.')
-            break
+            pass
 
         currentDF = dataframe[i].copy()
         modifiedDF = dataframe[i].copy()
