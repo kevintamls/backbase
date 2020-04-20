@@ -12,6 +12,12 @@ First pull the repository from GitHub:
 git clone https://github.com/kevintamls/backbase.git
 ```
 
+Change directory into the repository:
+
+```bash
+cd backbase
+```
+
 Install dependencies:
 
 ```bash
