@@ -6,6 +6,12 @@ Backbase Interview Task. This program is written using Python 3.8.2 but any Pyth
 
 Run in desired terminal on Windows/macOS/Linux. All csv files should be in the same directory as the python file. FYI, processor_noComment.py acts functionally the same as processor.py but without commends in the code.
 
+First pull the repository from GitHub:
+
+```bash
+git clone https://github.com/kevintamls/backbase.git
+```
+
 Install dependencies:
 
 ```bash
